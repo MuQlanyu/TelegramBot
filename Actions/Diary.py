@@ -44,7 +44,7 @@ def show_diary(message, date):
         History.add(bot.send_message(message.chat.id, Messages.date_no_notes))
 
 
-async def read_call_back(message):
+def read_call_back(message):
     """Обрабатывает введенную дату"""
     History.add(message)
     date = '-'.join(message.text.split('-')[::-1])
@@ -56,7 +56,7 @@ def get_correct_date(date):
     return '-'.join(str(date).split('-')[::-1]) + ".txt"
 
 
-async def write_date(message, day=dt.date.today()):
+def write_date(message, day=dt.date.today()):
     """Добавляет запись в day"""
     History.add(message)
     History.add(bot.send_message(message.chat.id, Messages.successful_new_note))
@@ -66,7 +66,7 @@ async def write_date(message, day=dt.date.today()):
 
 
 def write_yesterday_call_back(message):
-    await write_date(message, dt.date.today() - dt.timedelta(days=1))
+    write_date(message, dt.date.today() - dt.timedelta(days=1))
 
 
 def write_yesterday(message):
