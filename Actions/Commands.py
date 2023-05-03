@@ -26,7 +26,7 @@ def display_menu(message):
     History.add(bot.send_message(message.chat.id, Messages.sign_in, reply_markup=markup))
 
 
-def create_user(message):
+async def create_user(message):
     """Создает пользователя и подтверждает введенный пароль"""
     History.add(message)
     markup = types.InlineKeyboardMarkup(row_width=2)
@@ -57,7 +57,7 @@ def sign_up_password_agree(call):
             bot.register_next_step_handler_by_chat_id(call.message.chat.id, create_user)
 
 
-def delete_account_verification(message):
+async def delete_account_verification(message):
     """Подтверждает удаление аккаунта пользователя"""
     History.add(message)
     if message.text == str(message.from_user.id):
