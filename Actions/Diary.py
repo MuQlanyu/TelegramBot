@@ -77,6 +77,7 @@ def write_yesterday(message):
         return
     History.add(bot.send_message(message.chat.id, Messages.show_yesterday_notes))
     show_diary(message, str(dt.date.today() - dt.timedelta(days=1)))
+    History.add(bot.send_message(message.chat.id, Messages.new_note))
     os.remove(storage_path + '/' + str(message.from_user.id) + '/' + yesterday)
     bot.register_next_step_handler_by_chat_id(message.chat.id, write_yesterday_call_back)
 
@@ -89,5 +90,6 @@ def write_today(message):
         return
     History.add(bot.send_message(message.chat.id, Messages.show_today_notes))
     show_diary(message, str(dt.date.today()))
+    History.add(bot.send_message(message.chat.id, Messages.new_note))
     os.remove(storage_path + '/' + str(message.from_user.id) + '/' + today)
     bot.register_next_step_handler_by_chat_id(message.chat.id, write_date)
