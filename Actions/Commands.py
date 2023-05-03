@@ -23,7 +23,6 @@ def display_menu(message):
     diary_ = types.KeyboardButton(Buttons.diary)
     markup.add(clear, help_, diary_)
 
-    bot.send_sticker(message.chat.id, "Stickers/sticker.webp")
     History.add(bot.send_message(message.chat.id, Messages.sign_in, reply_markup=markup))
 
 
@@ -81,6 +80,7 @@ def command_delete_account(message):
 
 def clear_chat(chat):
     """Очищает чат"""
+    print(History.history[chat.chat.id])
     for mess in History.history[chat.chat.id]:
         bot.delete_message(chat.chat.id, mess)
     History.history.pop(chat.chat.id)

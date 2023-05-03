@@ -5,7 +5,6 @@ from Constants import *
 
 def write_mode(message):
     """Обрабатывает нажатие на кнопку новой записи"""
-    History.add(message)
     date = '-'.join(str(dt.date.today()).split('-')[::-1]) + ".txt"
     path = storage_path + '/' + str(message.from_user.id)
     today_notes = Messages.today_no_notes
@@ -19,15 +18,12 @@ def write_mode(message):
 
 def read_mode(message):
     """Обрабатывает нажатие на кнопку просмотра записи"""
-    History.add(message)
-    History.add(
-        bot.send_message(message.chat.id, Messages.ask_for_date_to_read))
+    History.add(bot.send_message(message.chat.id, Messages.ask_for_date_to_read))
     bot.register_next_step_handler_by_chat_id(message.chat.id, read_call_back)
 
 
 def rewrite_mode(message):
     """Обрабатывает нажатие на кнопку перезаписывания"""
-    History.add(message)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     yesterday = types.KeyboardButton(Buttons.yesterday_note)
     today = types.KeyboardButton(Buttons.today_note)
@@ -89,7 +85,7 @@ def write_today(message):
     """Перезаписывает сегодняшнюю дату"""
     today = get_correct_date(dt.date.today())
     if today not in os.listdir(storage_path + '/' + str(message.from_user.id)):
-        History.add(bot.send_message(message.chat.id,  Messages.today_no_notes))
+        History.add(bot.send_message(message.chat.id, Messages.today_no_notes))
         return
     History.add(bot.send_message(message.chat.id, Messages.show_today_notes))
     show_diary(message, str(dt.date.today()))
